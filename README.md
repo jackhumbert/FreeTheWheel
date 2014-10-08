@@ -17,8 +17,8 @@ Logitech driving wheel enabler based on [Feral Interactive's FreeTheWheel](http:
 
 ## How to use it
 
-Run `./ftw` once you've plugged in your wheel. You'll need to run it every time you restart/plug it back in.
+Run `./ftw` once you've plugged in your wheel. You'll need to run it every time you restart/plug it in.
 
 ## How to compile
 
-Run `make`
+Assuming you have a development environment, run `make`
