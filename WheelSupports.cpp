@@ -300,15 +300,19 @@ void GetCmdLogitechWheelNative(CCommands *c, const DeviceID deviceID)
 			c->count = 1;
 			break;
 		case kGPLogitechG27Native:
+
+
+            // Original commands
 //			c->cmds[0][0] = 0xf8;
 //			c->cmds[0][1] = 0x0a;
-//			c->cmds[1][0] = 0xf8; // Does it
-//			c->cmds[1][1] = 0x09; // Does it
-//			c->cmds[1][2] = 0x04; // Does it
-//			c->cmds[1][3] = 0x01; // Breaks wheel
+//			c->cmds[1][0] = 0xf8;
+//			c->cmds[1][1] = 0x09;
+//			c->cmds[1][2] = 0x04;
+//			c->cmds[1][3] = 0x01;
 //			c->count = 1;
             
             // https://github.com/TripleSpeeder/LTWheelConf/blob/master/wheels.c
+            
             c->cmds[0][0] = 0xf8;
             c->cmds[0][1] = 0x0a;
             c->cmds[0][2] = 0x00;
@@ -318,16 +322,25 @@ void GetCmdLogitechWheelNative(CCommands *c, const DeviceID deviceID)
             c->cmds[0][6] = 0x00;
             c->cmds[0][7] = 0x00;
 
-            c->cmds[1][0] = 0xf8; // 5
+            // Partial button mapping
+            c->cmds[1][0] = 0xf8;
             c->cmds[1][1] = 0x01;
-            // 1 partial button mapping
-            // 9 full button mapping, all axis support
             c->cmds[1][2] = 0x00;
             c->cmds[1][3] = 0x00;
             c->cmds[1][4] = 0x00;
             c->cmds[1][5] = 0x00;
             c->cmds[1][6] = 0x00;
             c->cmds[1][7] = 0x00;
+            
+            // Full button mapping with clutch
+//            c->cmds[1][0] = 0xf8;
+//            c->cmds[1][1] = 0x09;
+//            c->cmds[1][2] = 0x04;
+//            c->cmds[1][3] = 0x01;
+//            c->cmds[1][4] = 0x00;
+//            c->cmds[1][5] = 0x00;
+//            c->cmds[1][6] = 0x00;
+//            c->cmds[1][7] = 0x00;
 
 			c->count = 2;
             
