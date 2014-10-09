@@ -14,6 +14,7 @@ Logitech driving wheel enabler based on [Feral Interactive's FreeTheWheel](http:
 
 * Clutch support
 * All 6 buttons on the wheel
+* Shifter support?
 
 ## How to use it
 
