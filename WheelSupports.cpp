@@ -97,6 +97,9 @@ bool ConfigDevice(IOHIDDeviceRef hidDevice, DeviceID deviceID, const DeviceMode 
 		case kGPLogitechDFPNative:
             printf("Logitech Driving Force Pro Native mode enabled.\n");
 			return ConfigLogitechWheels(hidDevice, deviceID, true, mode);
+		case kGPLogitechG920Native:
+			printf("Logitech G920 Native mode enabled.\n");
+			return ConfigLogitechWheels(hidDevice, deviceID, true, mode);
 		default:
 			return false;
 	}
@@ -229,6 +232,11 @@ bool ConfigLogitechWheels(IOHIDDeviceRef hidDevice, DeviceID deviceID, bool nati
 			targetDeviceID = kGPLogitechDFPNative;
             printf("Logitech Driving Force Pro Native mode enabled.\n");
 		}
+		else if(CFStringFind(productID, CFSTR(kGPLogitechG920ProductID), 0).location == 0)
+		{
+			targetDeviceID = kGPLogitechG920Native;
+			printf("Logitech G920 Native mode enabled.\n");
+		}
 		else return false;
 		
 		// Activate full native and 900 degree mode
@@ -359,6 +367,18 @@ void GetCmdLogitechWheelNative(CCommands *c, const DeviceID deviceID)
 			c->cmds[0][1] = 0x01;
 			c->count = 1;
 			break;
+		case kGPLogitechG920Native:
+			c->cmds[0][0] = 0xf8;
+			c->cmds[0][1] = 0x0a;
+			c->cmds[0][2] = 0x00;
+			c->cmds[0][3] = 0x00;
+			c->cmds[0][4] = 0x00;
+			c->cmds[0][5] = 0x00;
+			c->cmds[0][6] = 0x00;
+			c->cmds[0][7] = 0x00;
+
+			c->count = 2;
+			break;
 		default:
 			c->count = 0;
 			break;
@@ -438,6 +458,17 @@ void GetCmdLogitechWheelRange(CCommands *c, const DeviceID deviceID, int range)
 				c->cmds[1][6] = 0xff;
 			}
 			break;
+		}
+		case kGPLogitechG920Native:
+		{
+			c->cmds[0][0] = 0xf8;
+			c->cmds[0][1] = 0x61;
+			c->cmds[0][2] = (range & 0x00ff);
+			c->cmds[0][3] = (range & 0xff00) >> 8;
+			c->cmds[0][4] = 0x00;
+			c->cmds[0][5] = 0x00;
+			c->cmds[0][6] = 0x00;
+			c->cmds[0][7] = 0x00;
 		}
 		default:
 			c->count = 0;
