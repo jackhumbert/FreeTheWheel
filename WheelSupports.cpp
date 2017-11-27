@@ -91,6 +91,9 @@ bool ConfigDevice(IOHIDDeviceRef hidDevice, DeviceID deviceID, const DeviceMode 
 		case kGPLogitechG27Native:
             printf("Logitech G27 Native mode enabled.\n");
             return ConfigLogitechWheels(hidDevice, deviceID, true, mode);
+		case kGPLogitechG29Native:
+            printf("Logitech G29 Native mode enabled.\n");
+            return ConfigLogitechWheels(hidDevice, deviceID, true, mode);
 		case kGPLogitechDFGTNative:
             printf("Logitech Driving Force GT Native mode enabled.\n");
             return ConfigLogitechWheels(hidDevice, deviceID, true, mode);
@@ -222,6 +225,11 @@ bool ConfigLogitechWheels(IOHIDDeviceRef hidDevice, DeviceID deviceID, bool nati
 			targetDeviceID = kGPLogitechG27Native;
             printf("Logitech G27 Native mode enabled.\n");
 		}
+		else if(CFStringFind(productID, CFSTR(kGPLogitechG29ProductID), 0).location == 0)
+		{
+			targetDeviceID = kGPLogitechG29Native;
+            printf("Logitech G29 Native mode enabled.\n");
+		}
 		else if(CFStringFind(productID, CFSTR(kGPLogitechDFGTProductID), 0).location == 0)
 		{
 			targetDeviceID = kGPLogitechDFGTNative;
@@ -308,6 +316,7 @@ void GetCmdLogitechWheelNative(CCommands *c, const DeviceID deviceID)
 			c->count = 1;
 			break;
 		case kGPLogitechG27Native:
+		case kGPLogitechG29Native:
 
 
             // Original commands
@@ -399,6 +408,7 @@ void GetCmdLogitechWheelRange(CCommands *c, const DeviceID deviceID, int range)
 	switch (deviceID) {
 		case kGPLogitechG25Native:
 		case kGPLogitechG27Native:
+		case kGPLogitechG29Native:
 		case kGPLogitechDFGTNative:
 		{
 			c->cmds[0][0] = 0xf8;
