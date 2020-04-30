@@ -116,7 +116,7 @@ bool ConfigDevice(IOHIDDeviceRef hidDevice, DeviceID deviceID, const DeviceMode 
 IOReturn OpenDevice(IOHIDDeviceRef hidDevice)
 {
 	IOReturn result = IOHIDDeviceOpen(hidDevice, kIOHIDOptionsTypeSeizeDevice);
-	if(result != kIOReturnSuccess)
+	if(result == kIOReturnError)
 	{
 		printf("ERROR: OpenDevice failed with result: %x\n", result);
 		return result;
