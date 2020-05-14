@@ -7,6 +7,7 @@
 //
 
 #include <CoreFoundation/CFString.h>
+#include <string>
 #include "WheelSupports.h"
 
 //=============================================================================
@@ -116,12 +117,30 @@ bool ConfigDevice(IOHIDDeviceRef hidDevice, DeviceID deviceID, const DeviceMode 
 IOReturn OpenDevice(IOHIDDeviceRef hidDevice)
 {
 	IOReturn result = IOHIDDeviceOpen(hidDevice, kIOHIDOptionsTypeSeizeDevice);
-	if(result != kIOReturnSuccess)
-	{
-		printf("ERROR: OpenDevice failed with result: %x\n", result);
-		return result;
-	}
-	return kIOReturnSuccess;
+        std::string msg = "";
+        
+        switch(result) {
+        case kIOReturnError: msg = "general error"; break;
+        case kIOReturnNoMemory: msg = "can't allocate memory"; break;
+        case kIOReturnNoResources: msg = "resource shortage"; break;
+        case kIOReturnIPCError: msg = "error during IPC"; break;
+        case kIOReturnNoDevice: msg = "no such device"; break;
+        case kIOReturnNotPrivileged: msg = "privilege violation"; break;
+        case kIOReturnBadArgument: msg = "invalid argument"; break;
+        case kIOReturnLockedRead: msg = "device read locked"; break;
+        case kIOReturnLockedWrite: msg = "device write locked"; break;
+        //case kIOReturnExclusiveAccess: msg = "exclusive access and device already open"; break; // Common error on macOS Catalina with DFGT
+        case kIOReturnBadMessageID: msg = "sent/received messages had different msg_id"; break;
+        case kIOReturnUnsupported: msg = "unsupported function"; break;
+        case kIOReturnVMError: msg = "misc. VM failure"; break;
+        }
+
+        if(msg != "") {
+          printf("Error: OpenDevice failed - %s - (%x)\n", msg.c_str(), result);
+          return result;
+
+        }
+        return kIOReturnSuccess;
 }
 
 

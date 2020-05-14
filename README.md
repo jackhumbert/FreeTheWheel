@@ -3,6 +3,14 @@ Free The Wheel for OS X
 
 Logitech driving wheel enabler based on [Feral Interactive's FreeTheWheel](http://support.feralinteractive.com/en/faqs/free_the_wheel/)
 
+## OS X Catalina
+
+This is a fork of [jackhumbert's FreeTheWheel](https://github.com/jackhumbert/FreeTheWheel).
+I just made it to work on OS X Catalina. As far is I know, it works for the following wheels. Please let me know if your wheel works!
+
+* G27
+* Driving Force GT
+
 ## Features for the G27
 
 * Full 900˚ Rotation
